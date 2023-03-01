@@ -9,7 +9,13 @@ workflows:
             branches:
               only:
                 - main
-
+      - deploy:
+          filters:
+            branches:
+              only:
+                - main
+          required:
+            - build
 # Define the jobs we want to run for this project
 jobs:
   build:
@@ -24,10 +30,16 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          name: install-npm
+          name: install-npm-wee
           command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
-    
+  deploy:
+    docker:
+      - image: circleci/node:10.16.3
+    steps:
+      - run:
+          name: deploy-application
+          command ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC_PUBLIC_DNS "rm -rf ExampleApplication/;git clone https://github.com/CloByrne/ExampleApplication.git; source ExampleApplication/deploy.sh"
