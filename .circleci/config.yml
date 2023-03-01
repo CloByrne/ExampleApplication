@@ -9,13 +9,14 @@ workflows:
             branches:
               only:
                 - main
-      - deploy:
+        - deploy:
           filters:
             branches:
               only:
                 - main
-          required:
+          requires:
             - build
+
 # Define the jobs we want to run for this project
 jobs:
   build:
@@ -39,6 +40,7 @@ jobs:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
             - ./node_modules
+
   deploy:
     docker:
       - image: circleci/node:10.16.3
