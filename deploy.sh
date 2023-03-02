@@ -10,6 +10,7 @@ sudo npm install -g pm2
 pm2 stop example_app
 
 # change directory into folder where application is downloaded
+sudo chmod 777 ExampleApplication/
 cd ExampleApplication/
 
 # Install application dependancies
