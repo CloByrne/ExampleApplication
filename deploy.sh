@@ -31,25 +31,25 @@ docker cp ./server.crt node_app:server.crt
 # Start the node_app container
 docker start node_app
 
-sudo apt update && sudo apt install nodejs npm
+# sudo apt update && sudo apt install nodejs npm
 
 # Install pm2 which is a production process manager for Node.js with a built-in load balancer.
-sudo npm install -g pm2
+# sudo npm install -g pm2
 
 # stop any instance of our application running currently
-pm2 stop example_app
+# pm2 stop example_app
 
 # change directory into folder where application is downloaded
-sudo chmod 777 ExampleApplication/
-cd ExampleApplication/
+# sudo chmod 777 ExampleApplication/
+# cd ExampleApplication/
 
 # Install application dependancies
-npm install
+# npm install
 
-echo $PRIVATE_KEY > privatekey.pem
-echo $SERVER > server.crt
+# echo $PRIVATE_KEY > privatekey.pem
+# echo $SERVER > server.crt
 
 # Start the application with the process name example_app using pm2
-pm2 start ./bin/www --name example_app
+# pm2 start ./bin/www --name example_app
 
-echo "deploy code"
+# echo "deploy code"
