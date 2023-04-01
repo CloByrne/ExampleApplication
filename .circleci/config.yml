@@ -21,12 +21,12 @@ jobs:
   build:
     working_directory: ~/ExampleApplication
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:latest
     steps:
       - checkout
       - run: 
           name: update-npm
-          command: 'sudo npm install -g npm@5'
+          command: 'sudo npm install -g npm@8.1.4'
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
@@ -39,9 +39,9 @@ jobs:
 
   deploy:
     docker:
-      - image: circleci/node:10.16.3
+      - image: circleci/node:latest
     steps:
       - run:
           name: deploy-application
           command: ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS "rm -rf ExampleApplication/; git clone https://github.com/CloByrne/ExampleApplication.git; ls; cd ExampleApplication; ls; source deploy.sh"
-#deploy
+#deployment successful
